@@ -1,0 +1,27 @@
+{
+  "name": "fullstack-backend",
+  "version": "1.0.0",
+  "description": "LongVu backend zero",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server.js" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LongVu15/Fullstack_Backend.git"
+  },
+  "keywords": [
+    "nodejs",
+    "react"
+  ],
+  "author": "LongVu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LongVu15/Fullstack_Backend/issues"
+  },
+  "homepage": "https://github.com/LongVu15/Fullstack_Backend#readme",
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}
