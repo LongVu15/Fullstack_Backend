@@ -1,34 +1,40 @@
-const express = require('express')//common js
-const path = require('path')//commonjs
-require('dotenv').config()
+require('dotenv').config();
+const express = require('express');//common js
+const path = require('path');//commonjs
+const configViewEngine = require("./config/viewEngine");
+const mysql = require('mysql2');
 
-const app = express()//app express
+const webRoutes = require('./routes/web')
+
+const app = express();//app express
 const port = process.env.PORT || 8888; //Nếu server không chạy thì chạy cổng 1505 cho đỡ chết server
 const hostname = process.env.HOST_NAME;
 
-//Config template engine
-app.set('views', path.join(__dirname, 'views'));//Tìm vào bên trong thư mục này (Nhớ khai báo const path)
-app.set('view engine', 'ejs')
+configViewEngine(app);//Config server
 
-//Config static files
-app.use(express.static(path.join(__dirname, 'public')))
-
-//Khai báo route với dữ liệu tĩnh
-app.get('/', (req, res) => {
-    res.send('Hello World with Long Vu!')
-})
-
-app.get('/Shurima', (req, res) => {
-    res.send('Azir')// Khai báo trang tĩnh
-})
-
-app.get('/Noxus', (req, res) => {
-    // res.send('<h1 style="color: red"> Darius </h1>')
-    res.render('sample.ejs')//express tự tìm file trong views
-    //Khai báo trang động
-})
+// Khai báo route, tham số đầu tiên tạo link cho các routes
+app.use('/', webRoutes);
+app.use('/v1', webRoutes);
+app.use('/v2', webRoutes);
 
 // Khai báo route với dữ liệu động (lựa chọn Ejs)
+
+// test connection
+const connection = mysql.createConnection({
+    host: 'localhost',
+    port: '3307', //default: 3306
+    user: 'root', //default: empty
+    password: '123456',
+    database: 'hoidanit'
+});
+
+connection.query(
+    'SELECT * FROM Users u',
+    function (err, results, fields) {
+        console.log(">>>results= ", results);
+        console.log(">>>fields= ", fields);
+    }
+);
 
 app.listen(port, hostname, () => {
     console.log(`Example app listening on port ${port}`)
