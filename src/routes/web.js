@@ -1,7 +1,7 @@
 // Các methot, chức năng của website
 const express = require('express');
 
-const { getHomePage, getShurima, getNoxus } = require('../controllers/homeController');
+const { getHomePage, getShurima, getNoxus, postCreateUser } = require('../controllers/homeController');
 //Tìm vào trong homeController
 
 const router = express.Router();
@@ -17,6 +17,9 @@ const router = express.Router();
 router.get('/', getHomePage);
 router.get('/Shurima', getShurima);
 router.get('/Noxus', getNoxus);
+
+router.post('/create-user', postCreateUser);
+
 //Các hàm trong này không có dấu () ở cuối vì hàm không được thực thi trong file này, mà nó được tìm vào trong homeController
 
 module.exports = router; //export default
